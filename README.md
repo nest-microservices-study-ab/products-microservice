@@ -29,3 +29,4 @@ This repositoru contains the code for `products-microservice` and was created to
 ## Installation
 
 1. Create `.env` file in the root of the project using `.env.template` as a template.
+2. Install dependencies using `pnpm install`.
