@@ -12,8 +12,17 @@ export class ProductsService extends PrismaClient implements OnModuleInit {
     this.logger.log('Database connected');
   }
 
-  create(createProductDto: CreateProductDto) {
-    return 'This action adds a new product';
+  async create(createProductDto: CreateProductDto) {
+    const { name, price } = createProductDto;
+
+    const product = await this.product.create({
+      data: {
+        name: name,
+        price: price,
+      },
+    });
+
+    return product;
   }
 
   findAll() {
@@ -25,7 +34,7 @@ export class ProductsService extends PrismaClient implements OnModuleInit {
   }
 
   update(id: number, updateProductDto: UpdateProductDto) {
-    return `This action updates a #${id} product`;
+    return `This action updates a #${id} product ${updateProductDto}`;
   }
 
   remove(id: number) {
