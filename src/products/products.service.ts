@@ -17,14 +17,21 @@ export class ProductsService extends PrismaClient implements OnModuleInit {
   async create(createProductDto: CreateProductDto) {
     const { name, price } = createProductDto;
 
-    const product = await this.product.create({
-      data: {
-        name: name,
-        price: price,
-      },
-    });
+    try {
+      const product = await this.product.create({
+        data: {
+          name: name,
+          price: price,
+        },
+      });
 
-    return product;
+      return product;
+    } catch (error) {
+      throw new RpcException({
+        message: error.message,
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+      });
+    }
   }
 
   async findAll(paginationDto: PaginationDto) {
